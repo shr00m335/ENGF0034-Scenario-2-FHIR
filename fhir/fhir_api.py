@@ -1,6 +1,7 @@
 import requests
 from typing import Dict, Optional
 from .patient import Patient
+from .observation import Observation
 from .utils import *
 from .exceptions import UnauthorizedException
 import os
@@ -54,6 +55,21 @@ class FHIR_Api:
         if not "entry" in data.keys():
             return None
         return Patient(data["entry"][0]["resource"])
+    
+    @fhir_api_endpoint
+    def get_patient_observation(self, patient: Patient, code: str):
+        url = "https://gosh-synth-fhir.azurehealthcareapis.com/Observation"
+        params = {
+            "subject": f"Patient/{patient.id}",
+            "code": f"http://loinc.org|{code}"
+        }
+        res = requests.get(url, params=params, headers=self._get_headers())
+        if res.status_code != 200:
+            return []
+        data = res.json()
+        if not "entry" in data.keys():
+            return []
+        return [Observation(x["resource"]) for x in data["entry"]]
 
 if __name__ == "__main__":
     api = FHIR_Api()
