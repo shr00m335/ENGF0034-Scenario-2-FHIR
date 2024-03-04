@@ -1,6 +1,5 @@
 class Observation:
     def __init__(self, data):
-        print(data)
         self._code = data["code"]["coding"][0]["code"]
         self._text = data["code"]["text"]
         self._issued_time = data["issued"]
