@@ -5,8 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
-  <link rel="icon" href="red_cross.jpeg" type="image/x-icon">
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="icon" href="{{ url_for('static', filename='images/red_cross.jpeg') }}" type="image/x-icon">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/style.css') }}">
 </head>
 
 <body>
@@ -18,7 +18,7 @@
   <div class="container">
     <h1>Login</h1>
     <div class="user-info">
-      <img src="user_icon.jpeg" alt="User Icon" class="user-icon">
+      <img src="{{ url_for('static', filename='images/user_icon.jpeg') }}" alt="User Icon" class="user-icon">
       <form id="loginForm" onsubmit="return validateForm()">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username"><br>
@@ -33,7 +33,7 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script src="{{ url_for('static', filename='scripts/script.js') }}"></script>
 </body>
 
 </html>
