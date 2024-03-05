@@ -19,17 +19,15 @@
     <h1>Login</h1>
     <div class="user-info">
       <img src="{{ url_for('static', filename='images/user_icon.jpeg') }}" alt="User Icon" class="user-icon">
-      <form id="loginForm" onsubmit="return validateForm()">
+      <div id="loginForm">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username"><br>
         <div id="usernameError" class="error-message"></div><br>
         <label for="password">Password:</label>
         <input type="password" id="password" name="password"><br>
         <div id="passwordError" class="error-message"></div><br>
-        <a href="https://google.com">
-          <button type="button">Login</button>
-        </a>
-      </form>
+        <button type="button" onclick="validateForm()">Login</button>
+      </div>
     </div>
   </div>
 
