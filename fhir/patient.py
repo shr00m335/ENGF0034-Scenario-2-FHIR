@@ -8,6 +8,8 @@ class Patient:
         self._gender: str = data["gender"]
         self._birth_date = data["birthDate"]
         self._telecom = data["telecom"]
+        self._address = data[""]
+        self._mediacal_record_number = data[""]
 
     def __repr__(self) -> str:
         return f"<Patient name='{self._given_name[0]} {self._family_name}'>"
