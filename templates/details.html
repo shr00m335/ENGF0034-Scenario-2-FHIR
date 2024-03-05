@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Details</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/style.css') }}">
+</head>
+
+<body>
+    <div class="top-section">
+        <h1>NAME</h1>
+    </div>
+    <div class="details">
+        <p>BODY MASS INDEX =</p><br>
+        <p>HEIGHT =</p><br>
+        <p>WEIGHT =</p><br>
+        <p>HEART RATE =</p><br>
+        <p>RESPIRATORY RATE =</p><br>
+        <p>SMOKING STATUS =</p><br>
+        <p>BODY TEMPERATURE =</p><br>
+        <p>BODY MASS INDEX PER PERCENTILE =</p><br>
+        <p>BLOOD PRESSURE =</p><br>
+        <button type="button" onclick="download()">Download</button>
+    </div>
+
+    <script src="{{ url_for('static', filename='scripts/script.js') }}"></script>
+</body>
+
+</html>

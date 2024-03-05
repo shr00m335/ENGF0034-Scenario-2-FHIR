@@ -25,7 +25,7 @@ body {
 p {
   color: #333;
   /* Text color */
-  font-size: 14px;
+  font-size: 15px;
 }
 
 .container {
@@ -92,4 +92,15 @@ input[type="submit"]:hover {
   position: absolute;
   top: -190px;
   left: calc(30%);
+}
+
+.details {
+  width: 400px;
+  background-color: #fff;
+  padding: 50px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: auto;
+  margin-top: 50px;
+  /* Adjust top margin to center vertically */
 }
