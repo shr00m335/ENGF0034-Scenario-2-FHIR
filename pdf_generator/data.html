@@ -1,35 +1,38 @@
 <style>
-    p {font-size: 24px;}
-    li {font-size : 24px;}
-    footer {font-size: 24px;}
+    h1 {font-size: 20px;}
+    p {font-size: 15px;}
+    li {font-size : 15px;}
+    footer {font-size: 15px;}
 </style>
 
 <p>&nbsp;</p>
 <h1>Patient Health Records</h1>
 <div class="container"><!-- Your form element goes here -->
 <div class="section">
-<p>Name: {{my_name}}</p>
-<p>age: {{my_age}}</p>
-<p>Phone: {{my_phone_number}}</p>
-<p>Address: {{my_address}}</p>
+
+<p>Name: {{given_name}} {{given_name}}</p>
+<p>Gender: {{gender}}</p>
+<p>Birth Date: {{birth_date}}</p>
+<p>Telecom: {{telecome}}</p>
+<p>Address: {{address}}</p>
+<p>Medical Record Number: {{medical_record_number}}</p>
+<p>Body Mass Index: {{body_mass_index}}</p>
+<p>Height: {{height}}</p>
+<p>Weight: {{weight}}</p>
 </div>
+
 <div class="section">
-<h2>Medications</h2>
+<h1>Health Situations</h1>
 <ul>
-<li>{{medication1}}</li>
-<li>{{medication2}}</li>
-<li>{{medication3}}</li>
+<li>Heart Rate: {{heart_rate}}</li>
+<li>Respiratory Rate: {{respiratory_rate}}</li>
+<li>Smoking Status: {{smoing_status}}</li>
+<li>Body temperature: {{body_temperature}}</li>
+<li>Body Mass Index per Percentile: {{body_mass_index_per_percentile}} </li>
+<li>Blood Pressure: {{blood_pressure}}</li>
 </ul>
 </div>
-<div class="section">
-<h2>Health Issues</h2>
-<ul>
-<li>{{health1}}</li>
-<li>{{health2}}</li>
-<li>{{health3}}</li>
-<li>{{health4}}</li>
-</ul>
 </div>
-</div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <div><footer>Date Acessed: {{today_date}}</footer></div>
 <div>&nbsp;</div>
