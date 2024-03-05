@@ -1,4 +1,5 @@
-import pdfkit
+from xhtml2pdf import pisa
+
 import jinja2
 from datetime import datetime
 
@@ -27,8 +28,10 @@ def html_template(name, age, phone, address):
     template = template_env.get_template("data.html")
     output_text = template.render(context)
 
-    config = pdfkit.configuration(wkhtmltopdf = "/usr/local/bin/wkhtmltopdf")
-    pdfkit.from_string(output_text, my_name + "_information.pdf", configuration= config, css = "style.css")
+    with open(my_name + "_information.pdf", "wb") as pdf_file:
+        pisa_status = pisa.CreatePDF(output_text, dest=pdf_file)
+        
+    return not pisa_status.err
 
 
 
