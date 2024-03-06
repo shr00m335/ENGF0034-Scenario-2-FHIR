@@ -48,7 +48,7 @@ async function validateForm() {
     alert(resData.message);
     return false;
   }
-  alert("Success");
-
+  document.cookie = "token=" + resData.token;
+  window.location.href = "/details"
   return true;
 }

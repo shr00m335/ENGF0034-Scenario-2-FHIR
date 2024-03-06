@@ -25,3 +25,7 @@ class Observation:
             "unit": self._unit,
             "time": self._issued_time
         }
+    
+    @property
+    def code(self) -> str:
+        return self._code

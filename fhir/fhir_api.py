@@ -1,5 +1,5 @@
 import requests
-from typing import Dict, Optional
+from typing import Dict, Optional, List
 from .patient import Patient
 from .observation import Observation
 from .utils import *
@@ -75,7 +75,7 @@ class FHIR_Api:
         return [Observation(x["resource"]) for x in data["entry"]][0]
     
     @fhir_api_endpoint
-    def get_patient_health_data(self, patient: Patient):
+    def get_patient_health_data(self, patient: Patient) -> List[Observation]:
         url = "https://gosh-synth-fhir.azurehealthcareapis.com/Observation"
         params = {
             "subject": f"Patient/{patient.id}",

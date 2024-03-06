@@ -2,21 +2,22 @@ from flask import Flask, render_template, request
 import json
 import hashlib
 import uuid
-from fhir import FHIR_Api, LoincCode
+from fhir import FHIR_Api, Patient, LoincCode, Observation
+from typing import Dict
 
 app = Flask("FHIR")
 
-users_data = {}
+users_data: Dict[str, str] = {}
 with open("data.json", "r") as fp:
     users_data = json.load(fp)
 
 api = FHIR_Api()
 
-logged_in_users = {
+logged_in_users: Dict[str, Patient] = {
 
 }
 
-def generate_uuid():
+def generate_uuid() -> str:
     uid = str(uuid.uuid4())
     while uid in logged_in_users:
         uid = str(uuid.uuid4())
@@ -47,6 +48,9 @@ def login():
 def details():
     return render_template("details.html")
 
+def find_observation(data, code) -> Dict[str, str]:
+    return next((x.to_json() for x in data if x.code == code), None)
+
 @app.route("/patient/data", methods=["GET"])
 def get_patient_data():
     headers = request.headers
@@ -57,7 +61,18 @@ def get_patient_data():
     if not token in logged_in_users:
         return {}, 401
     data = api.get_patient_health_data(logged_in_users[token])
-    return [x.to_json() for x in data], 200
+    return {
+        "name": logged_in_users[token].full_name,
+        "height": find_observation(data, LoincCode.HEIGHT),
+        "weight": find_observation(data, LoincCode.WEIGHT),
+        "bmi": find_observation(data, LoincCode.BODY_MASS_INDEX),
+        "hr": find_observation(data, LoincCode.HEART_RATE),
+        "rr": find_observation(data, LoincCode.RESPIRATORY_RATE),
+        "ss": find_observation(data, LoincCode.SMOKING_STATUS),
+        "temperature": find_observation(data, LoincCode.BODY_TEMPERATURE),
+        "bmip": find_observation(data, LoincCode.BODY_MASS_INDEX_PER_PERCENTILE),
+        "bp": find_observation(data, LoincCode.BLOOD_PRESSURE),
+        }, 200
 
 if __name__ == "__main__":
     app.run(port=8080, debug=True)
