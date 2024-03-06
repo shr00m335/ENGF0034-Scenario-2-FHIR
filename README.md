@@ -19,3 +19,10 @@ pip install -r requriements.txt
 ```
 python server.py
 ```
+
+### 2. Test login data
+
+|username|password|
+|-|-|
+|Oliver Lucas Ducey|password|
+|Leigh Orla Mclean|123456|
