@@ -21,3 +21,19 @@ class Patient:
     @property
     def full_name(self) -> str:
         return f"{self._given_name[0]} {self._family_name}"
+    
+    @property
+    def family_name(self) -> str:
+        return self._family_name
+    
+    @property
+    def given_name(self) -> str:
+        return self._given_name[0]
+    
+    @property
+    def gender(self) -> str:
+        return self._gender
+    
+    @property
+    def birth_date(self) -> str:
+        return self._birth_date

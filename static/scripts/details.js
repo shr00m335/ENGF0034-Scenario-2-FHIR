@@ -31,6 +31,17 @@ async function fetch_data() {
     display_data(data);
 }
 
+function download() {
+  url = "/patient/report";
+  fetch(url, {
+    method: "GET",
+    headers: {
+      "Authorization": "Bearer " + token,
+    }
+  }).then(response => response.blob())
+  .then(data => window.open(URL.createObjectURL(data)))
+  }
+
 function display_data(data) {
     console.log(data)
     document.querySelector("#nameLabel").innerHTML = data.name;
