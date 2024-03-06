@@ -1,5 +1,4 @@
 from xhtml2pdf import pisa
-
 import jinja2
 from datetime import datetime
 
@@ -19,7 +18,9 @@ def html_template(ID,
     SMOKING_STATUS,
     BODY_TEMPERATURE,
     BODY_MASS_INDEX_PER_PERCENTILE,
-    BLOOD_PRESSURE):
+    BLOOD_PRESSURE,
+    RECOMMENDATION,
+    DATA_DATE):
     
     today_date = datetime.today().strftime("%d %b, %Y")
 
@@ -40,6 +41,8 @@ def html_template(ID,
         "body_temperature":BODY_TEMPERATURE,
         "body_mass_index_per_percentile": BODY_MASS_INDEX_PER_PERCENTILE,
         "blood_pressure": BLOOD_PRESSURE,
+        "recommendation" : RECOMMENDATION,
+        "data_date": DATA_DATE,
         "today_date": today_date}
 
     template_loader = jinja2.FileSystemLoader('./')
@@ -73,6 +76,14 @@ SMOKING_STATUS = "yes"
 BODY_TEMPERATURE = 20
 BODY_MASS_INDEX_PER_PERCENTILE = 22
 BLOOD_PRESSURE = 90
+if WEIGHT > 70:
+    RECOMMENDATION = "you should reduce your weight"
+elif WEIGHT < 40:
+    RECOMMENDATION = "you should increase your weight"
+else:
+    RECOMMENDATION = "you have a perfect weight, you are very healthy"
+    
+DATA_DATE = 2010
 
 html_template(
     ID,
@@ -91,4 +102,6 @@ html_template(
     SMOKING_STATUS,
     BODY_TEMPERATURE,
     BODY_MASS_INDEX_PER_PERCENTILE,
-    BLOOD_PRESSURE)
+    BLOOD_PRESSURE,
+    RECOMMENDATION, 
+    DATA_DATE)
