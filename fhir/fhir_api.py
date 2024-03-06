@@ -6,6 +6,7 @@ from .utils import *
 from .exceptions import UnauthorizedException
 import os
 from dotenv import load_dotenv
+from .loinc_code import LoincCode
 
 class FHIR_Api:
     _token: str
@@ -61,7 +62,26 @@ class FHIR_Api:
         url = "https://gosh-synth-fhir.azurehealthcareapis.com/Observation"
         params = {
             "subject": f"Patient/{patient.id}",
-            "code": f"http://loinc.org|{code}"
+            "code": f"http://loinc.org|{code}",
+            "_sort": "-date",
+            "_count": 9
+        }
+        res = requests.get(url, params=params, headers=self._get_headers())
+        if res.status_code != 200:
+            return []
+        data = res.json()
+        if not "entry" in data.keys():
+            return []
+        return [Observation(x["resource"]) for x in data["entry"]][0]
+    
+    @fhir_api_endpoint
+    def get_patient_health_data(self, patient: Patient):
+        url = "https://gosh-synth-fhir.azurehealthcareapis.com/Observation"
+        params = {
+            "subject": f"Patient/{patient.id}",
+            "code": f"http://loinc.org|{','.join(LoincCode.ALL_CODES)}",
+            "_sort": "-date",
+            "_count": 9
         }
         res = requests.get(url, params=params, headers=self._get_headers())
         if res.status_code != 200:
