@@ -13,7 +13,7 @@ CLIENT_SECRET={your client secret}
 ```
 3. Install required Python libraries
 ```
-pip install -r requriements.txt
+pip install -r requirements.txt
 ```
 4. Run the server (port 8080)
 ```
