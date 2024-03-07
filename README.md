@@ -8,8 +8,8 @@ git clone https://github.com/shr00m335/ENGF0034-Scenario-2-FHIR.git
 ```
 2. Create a .env file and put your FHIR API client id and client secret in it
 ```
-CLIENT_ID="{your client id}"
-CLIENT_SECRET="{your client secret}"
+CLIENT_ID={your client id}
+CLIENT_SECRET={your client secret}
 OPENAI_KEY="{add key here}"
 ```
 3. Install required Python libraries
