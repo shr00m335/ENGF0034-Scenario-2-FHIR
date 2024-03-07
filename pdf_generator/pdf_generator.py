@@ -25,7 +25,8 @@ def html_template(ID,
     
     today_date = datetime.today().strftime("%d %b, %Y")
 
-    context = {"my_ID" : ID,
+    context = {
+        "my_ID" : ID,
         "family_name": FAMILY_NAME, 
         "given_name" : GIVEN_NAME, 
         "gender": GENDER, 
@@ -44,7 +45,8 @@ def html_template(ID,
         "blood_pressure": BLOOD_PRESSURE,
         "recommendation" : RECOMMENDATION,
         "data_date": DATA_DATE,
-        "today_date": today_date}
+        "today_date": today_date
+    }
 
     output = io.BytesIO()
     template_loader = jinja2.FileSystemLoader('./')
@@ -58,7 +60,7 @@ def html_template(ID,
     return output.read()
 
 if __name__ == "__main__":
-    #patient background
+    # patient background
     ID = 123
     FAMILY_NAME = "Mok"
     GIVEN_NAME = "Jack"
@@ -68,7 +70,7 @@ if __name__ == "__main__":
     ADDRESS = "london"
     MEDICAL_RECORD_NUMBER = 1234
 
-    #medical conditions
+    # medical conditions
     BODY_MASS_INDEX = 20
     HEIGHT = 150
     WEIGHT = 50
@@ -106,4 +108,5 @@ if __name__ == "__main__":
         BODY_MASS_INDEX_PER_PERCENTILE,
         BLOOD_PRESSURE,
         RECOMMENDATION, 
-        DATA_DATE)
+        DATA_DATE
+    )

@@ -1,45 +1,44 @@
 <style>
-    h1 {font-size: 20px;}
-    p {font-size: 15px;}
-    li {font-size : 15px;}
-    footer {font-size: 15px;}
+    h1 {
+        font-size: 20px;
+    }
+
+    div {
+        font-size: 15px;
+    }
 </style>
 
-<p>&nbsp;</p>
-<h1>Patient Health Records</h1>
 <div class="container"><!-- Your form element goes here -->
-<div class="section">
-<p>Name: {{given_name}} {{given_name}}</p>
-<p>Gender: {{gender}}</p>
-<p>Birth Date: {{birth_date}}</p>
-<p>Telecom: {{telecom}}</p>
-<p>Address: {{address}}</p>
-<p>Medical Record Number: {{medical_record_number}}</p>
-<p>Body Mass Index: {{body_mass_index}}</p>
-<p>Height: {{height}}</p>
-<p>Weight: {{weight}}</p>
+    <div class="section">
+        <h1>Patient Health Records</h1>
+        <ul>
+            <li>Name: {{given_name}} {{given_name}}</li>
+            <li>Gender: {{gender}}</li>
+            <li>Birth Date: {{birth_date}}</li>
+            <li>Telecom: {{telecom}}</li>
+            <li>Address: {{address}}</li>
+            <li>Medical Record Number: {{medical_record_number}}</li>
+            <li>Body Mass Index: {{body_mass_index}}</li>
+            <li>Height: {{height}}</li>
+            <li>Weight: {{weight}}</li>
+        </ul>
+    </div>
+    <div class="section">
+        <h1>Health Situations</h1>
+        <ul>
+            <li>Heart Rate: {{heart_rate}}</li>
+            <li>Respiratory Rate: {{respiratory_rate}}</li>
+            <li>Smoking Status: {{smoking_status}}</li>
+            <li>Body temperature: {{body_temperature}}</li>
+            <li>Body Mass Index per Percentile: {{body_mass_index_per_percentile}} </li>
+            <li>Blood Pressure: {{blood_pressure}}</li>
+        </ul>
+    </div>
+    <div class = "section">
+        <h1>Recommendation</h1>
+        <p>{{recommendation}}</p>
+    </div>
 </div>
-
-<div class="section">
-<h1>Health Situations</h1>
-<ul>
-<li>Heart Rate: {{heart_rate}}</li>
-<li>Respiratory Rate: {{respiratory_rate}}</li>
-<li>Smoking Status: {{smoking_status}}</li>
-<li>Body temperature: {{body_temperature}}</li>
-<li>Body Mass Index per Percentile: {{body_mass_index_per_percentile}} </li>
-<li>Blood Pressure: {{blood_pressure}}</li>
-</ul>
+<div>
+    <p>Date of Data: {{data_date}}<br>Date Acessed: {{today_date}}</p>
 </div>
-
-<div class = "section">
-<h1>Recommendation</h1>
-<p>{{recommendation}}</p>
-</div>
-
-</div>
-
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<div><footer>Date of Data: {{data_date}}</footer></div>
-<div><footer>Date Acessed: {{today_date}}</footer></div>
-<div>&nbsp;</div>
