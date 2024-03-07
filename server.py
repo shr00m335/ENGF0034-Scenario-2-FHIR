@@ -5,11 +5,12 @@ import uuid
 from fhir import FHIR_Api, Patient, LoincCode, Observation
 from pdf_generator import pdf_generator
 from openai_api import OpenAIAPI
+import os
 
 app = Flask("FHIR")
 
 users_data: dict[str, str] = {}
-with open("data.json", "r") as fp:
+with open(os.path.dirname(os.path.abspath(__file__)) + "/data.json", "r") as fp:
     users_data = json.load(fp)
 
 api = FHIR_Api()
