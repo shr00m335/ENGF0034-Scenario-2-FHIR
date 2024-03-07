@@ -3,18 +3,21 @@ import json
 import hashlib
 import uuid
 from fhir import FHIR_Api, Patient, LoincCode, Observation
-from typing import Dict
 from pdf_generator import pdf_generator
+from openai_api import OpenAIAPI
 
 app = Flask("FHIR")
 
-users_data: Dict[str, str] = {}
+users_data: dict[str, str] = {}
 with open("data.json", "r") as fp:
     users_data = json.load(fp)
 
 api = FHIR_Api()
 
-logged_in_users: Dict[str, Patient] = {
+gpt_api = OpenAIAPI()
+gpt_api.set_custom_instruction('You are a medical assistant. Please analyse the data below and give a brief recommendation. The data is in the format [BMI, height, weight, heart rate, respiratory rate, smoking status, body temperature, BMI per percentile, blood pressure].')
+
+logged_in_users: dict[str, Patient] = {
 
 }
 
@@ -49,7 +52,7 @@ def login():
 def details():
     return render_template("details.html")
 
-def find_observation_json(data, code) -> Dict[str, str]:
+def find_observation_json(data, code) -> dict[str, str]:
     return next((x.to_json() for x in data if x.code == code), None)
 
 def find_observation(data, code) -> Observation:
@@ -76,7 +79,7 @@ def get_patient_data():
         "temperature": find_observation_json(data, LoincCode.BODY_TEMPERATURE),
         "bmip": find_observation_json(data, LoincCode.BODY_MASS_INDEX_PER_PERCENTILE),
         "bp": find_observation_json(data, LoincCode.BLOOD_PRESSURE),
-        }, 200
+    }, 200
 
 @app.route("/patient/report", methods=["GET"])
 def report():
@@ -89,6 +92,18 @@ def report():
         return {}, 401
     patient = logged_in_users[token]
     data = api.get_patient_health_data(patient)
+    observations = [
+        find_observation(data, LoincCode.BODY_MASS_INDEX).to_string() if find_observation(data, LoincCode.BODY_MASS_INDEX) else "",
+        find_observation(data, LoincCode.HEIGHT).to_string() if find_observation(data, LoincCode.HEIGHT) else "",
+        find_observation(data, LoincCode.WEIGHT).to_string() if find_observation(data, LoincCode.WEIGHT) else "",
+        find_observation(data, LoincCode.HEART_RATE).to_string() if find_observation(data, LoincCode.HEART_RATE) else "",
+        find_observation(data, LoincCode.RESPIRATORY_RATE).to_string() if find_observation(data, LoincCode.RESPIRATORY_RATE) else "",
+        find_observation(data, LoincCode.SMOKING_STATUS).to_string() if find_observation(data, LoincCode.SMOKING_STATUS) else "",
+        find_observation(data, LoincCode.BODY_TEMPERATURE).to_string() if find_observation(data, LoincCode.BODY_TEMPERATURE) else "",
+        find_observation(data, LoincCode.BODY_MASS_INDEX_PER_PERCENTILE).to_string() if find_observation(data, LoincCode.BODY_MASS_INDEX_PER_PERCENTILE) else "",
+        find_observation(data, LoincCode.BLOOD_PRESSURE).to_string() if find_observation(data, LoincCode.BLOOD_PRESSURE) else ""
+    ]
+    recommendation = gpt_api.get_response(observations)
     output = pdf_generator.html_template(
         patient.id,
         patient.family_name,
@@ -98,16 +113,8 @@ def report():
         "",
         "",
         patient.id,
-        find_observation(data, LoincCode.BODY_MASS_INDEX).to_string() if find_observation(data, LoincCode.BODY_MASS_INDEX) else "",
-        find_observation(data, LoincCode.HEIGHT).to_string() if find_observation(data, LoincCode.HEIGHT) else "",
-        find_observation(data, LoincCode.WEIGHT).to_string() if find_observation(data, LoincCode.WEIGHT) else "",
-        find_observation(data, LoincCode.HEART_RATE).to_string() if find_observation(data, LoincCode.HEART_RATE) else "",
-        find_observation(data, LoincCode.RESPIRATORY_RATE).to_string() if find_observation(data, LoincCode.RESPIRATORY_RATE) else "",
-        find_observation(data, LoincCode.SMOKING_STATUS).to_string() if find_observation(data, LoincCode.SMOKING_STATUS) else "",
-        find_observation(data, LoincCode.BODY_TEMPERATURE).to_string() if find_observation(data, LoincCode.BODY_TEMPERATURE) else "",
-        find_observation(data, LoincCode.BODY_MASS_INDEX_PER_PERCENTILE).to_string() if find_observation(data, LoincCode.BODY_MASS_INDEX_PER_PERCENTILE) else "",
-        find_observation(data, LoincCode.BLOOD_PRESSURE).to_string() if find_observation(data, LoincCode.BLOOD_PRESSURE) else "",
-        "",
+        *observations,
+        recommendation,
         data[0].issued_date
     )
     response = make_response(output)
