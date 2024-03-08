@@ -16,10 +16,13 @@ OPENAI_KEY="{add key here}"
 ```
 pip install -r requirements.txt
 ```
-4. Run the server (port 8080)
+4. Run the server
 ```
-python server.py
+python server.py [port] [openai|gpt4all]
 ```
+- Can choose between Open AI Chat GPT 3.5 or GPT4All
+    - Open AI: Open AI Api key is required
+    - GPT4All: Running LLM locally. Require CPUs which support AVX/AVX2 and at least 8GB of RAM
 
 ### 2. Test login data
 
