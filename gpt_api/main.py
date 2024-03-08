@@ -1,4 +1,4 @@
-from openai_api import OpenAIAPI
+from gpt_api import OpenAIAPI
 
 def exit_program(gpt_api: OpenAIAPI) -> None:
     exit()

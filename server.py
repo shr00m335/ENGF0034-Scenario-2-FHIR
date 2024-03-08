@@ -1,11 +1,12 @@
 from flask import Flask, render_template, request, make_response
 import json
 import hashlib
-import uuid
+import secrets
 from fhir import FHIR_Api, Patient, LoincCode, Observation
 from pdf_generator import pdf_generator
-from openai_api import OpenAIAPI
+from gpt_api import OpenAIAPI, GPT4All_Api, LLM_Api
 import os
+import sys
 
 app = Flask("FHIR")
 
@@ -15,18 +16,17 @@ with open(os.path.dirname(os.path.abspath(__file__)) + "/data.json", "r") as fp:
 
 api = FHIR_Api()
 
-gpt_api = OpenAIAPI()
-gpt_api.set_custom_instruction('You are a medical assistant. Please analyse the data below and give a brief recommendation. The data is in the format [BMI, height, weight, heart rate, respiratory rate, smoking status, body temperature, BMI per percentile, blood pressure].')
+gpt_api: LLM_Api = None
 
 logged_in_users: dict[str, Patient] = {
 
 }
 
 def generate_uuid() -> str:
-    uid = str(uuid.uuid4())
-    while uid in logged_in_users:
-        uid = str(uuid.uuid4())
-    return uid
+    token = secrets.token_hex()
+    while token in logged_in_users:
+        token = secrets.token_hex()
+    return token
 
 @app.route("/")
 def home():
@@ -124,4 +124,10 @@ def report():
     return response
 
 if __name__ == "__main__":
-    app.run(port=8080, debug=True)
+    args = sys.argv[1:]
+    if args[1] == "openai":
+        gpt_api = OpenAIAPI()
+    elif args[1] == "gpt4all":
+        gpt_api = GPT4All_Api()
+    gpt_api.set_custom_instruction('You are a medical assistant. Please analyse the data below and give a brief recommendation. The data is in the format [BMI, height, weight, heart rate, respiratory rate, smoking status, body temperature, BMI per percentile, blood pressure].')
+    app.run(port=args[0], debug=True)

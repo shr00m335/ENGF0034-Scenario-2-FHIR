@@ -1,19 +1,15 @@
 from openai import OpenAI
+from .llm_api import LLM_Api
 import os
 from dotenv import load_dotenv
 
 
-class OpenAIAPI:
-    def __init__(self, api_key: str=None) -> None:
-        if api_key is None:
-            load_dotenv()
-            api_key = os.getenv('OPENAI_KEY')
-        
+class OpenAIAPI(LLM_Api):
+    def __init__(self) -> None:
+        super().__init__()
+        load_dotenv()
+        api_key = os.getenv('OPENAI_KEY')
         self._client: OpenAI = OpenAI(api_key=api_key)
-        self._custom_instruction: str = None
-
-    def set_custom_instruction(self, instruction: str) -> None:
-        self._custom_instruction = instruction
 
     def get_response(self, prompt: str) -> str:
         if self._custom_instruction:
