@@ -28,7 +28,7 @@ python server.py [port] [openai|gpt4all]
     - GPT4All: Running LLM locally with the mistral-7b-openorca model. 
         - Requires at least 4GB of storage either of the following
             - CPUs which support AVX/AVX2 and at least 8GB of RAM
-            - GPUs with at least 4GB of VRAM
+            - GPUs with at least 8GB of VRAM
 
 ### 2. Test login data
 
