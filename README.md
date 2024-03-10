@@ -8,11 +8,11 @@ Our project involves the development of a healthcare website utilizing the Fast 
 ```
 git clone https://github.com/shr00m335/ENGF0034-Scenario-2-FHIR.git
 ```
-2. Create a .env file and put your FHIR API client id and client secret in it
+2. Create a `.env` file at the same directory as `server.py` and put your FHIR API client id, client secret and Open AI key (if you are using chatgpt 3.5) in it
 ```
 CLIENT_ID={your client id}
 CLIENT_SECRET={your client secret}
-OPENAI_KEY="{add key here}"
+OPENAI_KEY="{add key here}" (requried for using chat gpt 3.5)
 ```
 3. Install required Python libraries 
 ```
